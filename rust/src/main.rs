@@ -1,15 +1,16 @@
 mod levenshtein_distance;
 
-use levenshtein_distance::levenshtein_distance;
+use levenshtein_distance::LevenshteinDistance;
 
 fn main() {
     let lines: Vec<&str> = include_str!("../../sample.txt").split('\n').collect();
 
     let benchmark = || {
+        let mut levenshtein = LevenshteinDistance::default();
         for _ in 0..10000 {
             let mut last_value = "";
             for line in &lines {
-                levenshtein_distance(last_value, line);
+                levenshtein.distance(last_value, line);
                 last_value = line;
             }
         }
@@ -28,7 +29,7 @@ fn main() {
 
     // check
     let answers: Vec<String> = (0..lines.len()-1)
-        .map(|i| levenshtein_distance(lines[i], lines[i+1]))
+        .map(|i| LevenshteinDistance::default().distance(lines[i], lines[i+1]))
         .map(|dist| dist.to_string())
         .collect();
     eprintln!("{}", answers.join(","));
