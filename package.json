@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Christian Scott <christian.s@canva.com>",
   "license": "MIT",
+  "scripts": {
+    "bench": "node run.js bench",
+    "check": "node run.js check"
+  },
   "devDependencies": {
     "execa": "^4.0.0",
     "fast-glob": "^3.2.2"

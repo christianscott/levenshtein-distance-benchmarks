@@ -3,7 +3,7 @@
 set -e
 
 run() {
-  rm out
+  rm -f out
   go build -o out 1>&2
   ./out
 }
