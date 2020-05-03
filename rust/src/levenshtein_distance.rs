@@ -23,9 +23,9 @@ pub fn levenshtein_distance(source: &str, target: &str) -> usize {
             let dist_if_insert = current_dist + 1;
             let dist_if_delete = cache[j + 1] + 1;
 
-            next_dist = std::cmp::min(
-                dist_if_substitute,
-                std::cmp::min(dist_if_insert, dist_if_delete),
+            next_dist = min(
+                dist_if_delete,
+                min(dist_if_insert, dist_if_substitute),
             );
 
             cache[j] = current_dist;
@@ -35,4 +35,8 @@ pub fn levenshtein_distance(source: &str, target: &str) -> usize {
     }
 
     cache[target.len()]
+}
+
+fn min(a: usize, b: usize) -> usize {
+    if a < b { a } else { b }
 }
