@@ -1,19 +1,16 @@
-const fs = require('fs');
+var fs = require("fs");
 
-const lines = fs
-  .readFileSync('../sample.txt')
-  .toString()
-  .split('\n');
+var lines = fs.readFileSync("../sample.txt").toString().split("\n");
 
-const start = Date.now();
+var start = Date.now();
 benchmark(lines);
-const end = Date.now() - start;
+var end = Date.now() - start;
 
 console.log(`${end / 1000}`);
 
 function benchmark(lines) {
   for (var i = 0; i < 1e4; i++) {
-    let lastValue = '';
+    var lastValue = "";
     for (var j = 0; j < lines.length; j++) {
       levenshteinDistance(lastValue, lines[j]);
       lastValue = lines[j];
@@ -30,25 +27,31 @@ function levenshteinDistance(source, target) {
     return source.length;
   }
 
-  const cache = new Array(target.length + 1);
-  for (let i = 0; i < target.length + 1; i++) {
+  var cache = new Uint32Array(target.length + 1);
+  for (var i = 0; i < target.length + 1; i++) {
     cache[i] = i;
   }
 
-  for (let i = 0; i < source.length; i++) {
-    let nextDistance = i + 1;
-    const sourceChar = source.charAt(i);
+  var sourceLen = source.length;
+  for (var i = 0; i < sourceLen; i++) {
+    var nextDistance = i + 1;
+    var sourceChar = source.charAt(i);
 
-    for (let j = 0; j < target.length; j++) {
-      let currentDistance = nextDistance;
+    var targetLen = target.length;
+    for (var j = 0; j < targetLen; j++) {
+      var currentDistance = nextDistance;
 
-      const areCharCodesEqual = sourceChar === target.charAt(j);
+      var areCharCodesEqual = sourceChar === target.charAt(j);
 
-      const distanceIfSubstitute = cache[j] + (areCharCodesEqual ? 0 : 1);
-      const distanceIfInsert = currentDistance + 1;
-      const distanceIfDelete = cache[j + 1] + 1;
+      var distanceIfSubstitute = (cache[j] + (areCharCodesEqual ? 0 : 1)) | 0;
+      var distanceIfInsert = (currentDistance + 1) | 0;
+      var distanceIfDelete = (cache[j + 1] + 1) | 0;
 
-      nextDistance = Math.min(distanceIfSubstitute, distanceIfInsert, distanceIfDelete);
+      nextDistance = Math.min(
+        distanceIfSubstitute,
+        distanceIfInsert,
+        distanceIfDelete
+      );
 
       cache[j] = currentDistance;
     }
