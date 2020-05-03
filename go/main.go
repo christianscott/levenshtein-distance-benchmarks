@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
 	"time"
 )
@@ -30,6 +31,14 @@ func main() {
 	end := time.Since(start)
 
 	fmt.Printf("%f", end.Seconds())
+
+	// check
+	dists := make([]string, len(lines)-1)
+	for i := 0; i < len(dists); i++ {
+		dist := LevenshteinDistance(lines[i], lines[i+1])
+		dists[i] = fmt.Sprintf("%d", dist)
+	}
+	fmt.Fprintln(os.Stderr, strings.Join(dists, ","))
 }
 
 // LevenshteinDistance determines the "edit distance" between two strings

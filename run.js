@@ -29,9 +29,9 @@ async function check() {
   let anyFailed = false;
   for await (const { dir, stderr } of run()) {
     if (stderr.trim() === expected) {
-      anyFailed = true;
       console.log(`${dir}: ok`);
     } else {
+      anyFailed = true;
       console.log(
         `${dir}: wrong output\n  expected: ${expected}\n  got: ${stderr.trim()}`
       );
@@ -39,7 +39,8 @@ async function check() {
   }
 
   if (anyFailed) {
-    throw new Error("one or more programs produced the wrong output");
+    console.error("one or more programs produced the wrong output");
+    process.exit(1);
   }
 }
 

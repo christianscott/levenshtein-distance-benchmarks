@@ -8,6 +8,12 @@ var end = Date.now() - start;
 
 console.log(`${end / 1000}`);
 
+// check
+var dists = range(lines.length - 1).map((i) =>
+  levenshteinDistance(lines[i], lines[i + 1])
+);
+console.error(dists.join(","));
+
 function benchmark(lines) {
   for (var i = 0; i < 1e4; i++) {
     var lastValue = "";
@@ -16,6 +22,10 @@ function benchmark(lines) {
       lastValue = lines[j];
     }
   }
+}
+
+function range(length) {
+  return Array.from({ length }, (_, i) => i);
 }
 
 function levenshteinDistance(source, target) {
