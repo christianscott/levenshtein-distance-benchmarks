@@ -32,8 +32,6 @@ func main() {
 	fmt.Printf("%f", end.Seconds())
 }
 
-var cache [1024]int
-
 // LevenshteinDistance determines the "edit distance" between two strings
 func LevenshteinDistance(source, target string) int {
 	if len(source) == 0 {
@@ -47,6 +45,7 @@ func LevenshteinDistance(source, target string) int {
 	sourceChars := []rune(source)
 	targetChars := []rune(target)
 
+	cache := make([]int, len(target)+1)
 	for i := 0; i < len(target)+1; i++ {
 		cache[i] = i
 	}
@@ -64,11 +63,7 @@ func LevenshteinDistance(source, target string) int {
 			distIfInsert := currentDist + 1
 			distIfDelete := cache[j+1] + 1
 
-			nextDist = min3(
-				distIfDelete,
-				distIfInsert,
-				distIfSubstitute,
-			)
+			nextDist = min(distIfDelete, min(distIfInsert, distIfSubstitute))
 
 			cache[j] = currentDist
 		}
@@ -77,10 +72,6 @@ func LevenshteinDistance(source, target string) int {
 	}
 
 	return cache[len(target)]
-}
-
-func min3(a, b, c int) int {
-	return min(a, min(b, c))
 }
 
 func min(a, b int) int {
