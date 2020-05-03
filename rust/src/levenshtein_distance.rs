@@ -7,7 +7,7 @@ pub fn levenshtein_distance(source: &str, target: &str) -> usize {
         return source.len();
     }
 
-    let mut cache: Vec<usize> = (0..=target.len()).collect();
+    let mut cache: Vec<usize> = (0..=target.chars().count()).collect();
 
     for (i, source_char) in source.chars().enumerate() {
         let mut next_dist = i + 1;
