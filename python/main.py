@@ -35,8 +35,8 @@ def levenshtein_distance(source: str, target: str):
 if __name__ == "__main__":
     from datetime import datetime
 
-    with open("../sample.txt", "r") as sample_file:
-        lines = sample_file.read().split("\n")
+    with open("../sample.txt", "rb") as sample_file:
+        lines = sample_file.read().split(b"\n")
 
     def benchmark():
         for _ in range(10_000):
