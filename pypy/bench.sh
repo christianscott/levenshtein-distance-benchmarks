@@ -3,7 +3,7 @@
 set -e
 
 run() {
-  pypy3 main.py
+  pypy3 main.py 2>/dev/null
 }
 
 run;

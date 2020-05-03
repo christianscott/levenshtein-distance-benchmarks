@@ -50,3 +50,11 @@ if __name__ == "__main__":
     duration = datetime.now() - start
 
     print(f"{duration.total_seconds()}s")
+
+    import sys
+    sys.stderr.write(
+        ",".join(
+            str(levenshtein_distance(first, second))
+            for first, second in zip(lines, lines[1:])
+        )
+    )
