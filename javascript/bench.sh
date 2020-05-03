@@ -3,7 +3,7 @@
 set -e
 
 run() {
-  echo "node: $(node main.js)"
+  node main.js
 }
 
 run;

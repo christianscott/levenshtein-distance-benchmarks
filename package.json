@@ -1,0 +1,11 @@
+{
+  "name": "levenshtein-distance-benchmarks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Christian Scott <christian.s@canva.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "execa": "^4.0.0",
+    "fast-glob": "^3.2.2"
+  }
+}

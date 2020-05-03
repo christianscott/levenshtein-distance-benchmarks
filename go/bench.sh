@@ -5,7 +5,7 @@ set -e
 run() {
   rm out
   go build -o out 1>&2
-  echo "go: $(./out)"
+  ./out
 }
 
 run;
