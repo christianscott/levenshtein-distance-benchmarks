@@ -1,6 +1,7 @@
 mod levenshtein_distance;
 
 use levenshtein_distance::levenshtein_distance;
+use rayon::prelude::*;
 
 fn main() {
 
@@ -10,7 +11,7 @@ fn main() {
 
     let benchmark = || {
         for _ in 0..10000 {
-            lines.iter().zip(lines[1..].iter())
+            lines.par_iter().zip(lines[1..].par_iter())
                 .for_each(|(a, b)| {
                     levenshtein_distance(a, b);
                 });
