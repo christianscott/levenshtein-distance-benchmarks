@@ -43,19 +43,19 @@ func main() {
 
 // LevenshteinDistance determines the "edit distance" between two strings
 func LevenshteinDistance(source, target string) int {
-	if len(source) == 0 {
-		return len(target)
-	}
-
-	if len(target) == 0 {
-		return len(source)
-	}
-
 	sourceChars := []rune(source)
 	targetChars := []rune(target)
 
-	cache := make([]int, len(target)+1)
-	for i := 0; i < len(target)+1; i++ {
+	if len(sourceChars) == 0 {
+		return len(targetChars)
+	}
+
+	if len(targetChars) == 0 {
+		return len(sourceChars)
+	}
+
+	cache := make([]int, len(targetChars)+1)
+	for i := 0; i < len(targetChars)+1; i++ {
 		cache[i] = i
 	}
 
@@ -77,10 +77,10 @@ func LevenshteinDistance(source, target string) int {
 			cache[j] = currentDist
 		}
 
-		cache[len(target)] = nextDist
+		cache[len(targetChars)] = nextDist
 	}
 
-	return cache[len(target)]
+	return cache[len(targetChars)]
 }
 
 func min(a, b int) int {
