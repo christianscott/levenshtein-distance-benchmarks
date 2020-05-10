@@ -17,4 +17,4 @@ rust: 2.790513908
 ✨  Done in 8.45s.
 ```
 
-Python and c are omitted by renaming check.sh to _check.sh. Python is omitted due to taking ~200 seconds (100x!!!), and C is omitted because I can't write C 🤠.
+Python and c are omitted by renaming bench.sh to _bench.sh. Python is omitted due to taking ~200 seconds (100x!!!), and C is omitted because I can't write C 🤠.
