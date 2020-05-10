@@ -1,13 +1,14 @@
 pub fn levenshtein_distance(source: &str, target: &str) -> usize {
     if source.is_empty() {
-        return target.len();
+        return target.chars().count();
     }
 
     if target.is_empty() {
-        return source.len();
+        return source.chars().count();
     }
 
-    let mut cache: Vec<usize> = (0..=target.chars().count()).collect();
+    let target_len = target.chars().count();
+    let mut cache: Vec<usize> = (0..=target_len).collect();
 
     for (i, source_char) in source.chars().enumerate() {
         let mut next_dist = i + 1;
@@ -31,10 +32,10 @@ pub fn levenshtein_distance(source: &str, target: &str) -> usize {
             cache[j] = current_dist;
         }
 
-        cache[target.len()] = next_dist;
+        cache[target_len] = next_dist;
     }
 
-    cache[target.len()]
+    cache[target_len]
 }
 
 fn min(a: usize, b: usize) -> usize {
