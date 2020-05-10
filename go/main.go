@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 func main() {
@@ -43,25 +44,23 @@ func main() {
 
 // LevenshteinDistance determines the "edit distance" between two strings
 func LevenshteinDistance(source, target string) int {
-	sourceChars := []rune(source)
-	targetChars := []rune(target)
-
-	if len(sourceChars) == 0 {
-		return len(targetChars)
+	if len(source) == 0 {
+		return utf8.RuneCountInString(target)
 	}
 
-	if len(targetChars) == 0 {
-		return len(sourceChars)
+	if len(target) == 0 {
+		return utf8.RuneCountInString(source)
 	}
 
-	cache := make([]int, len(targetChars)+1)
-	for i := 0; i < len(targetChars)+1; i++ {
+	targetLen := utf8.RuneCountInString(target)
+	cache := make([]int, targetLen+1)
+	for i := 0; i < targetLen+1; i++ {
 		cache[i] = i
 	}
 
-	for i, sourceChar := range sourceChars {
+	for i, sourceChar := range source {
 		nextDist := i + 1
-		for j, targetChar := range targetChars {
+		for j, targetChar := range target {
 			currentDist := nextDist
 
 			distIfSubstitute := cache[j]
@@ -77,10 +76,10 @@ func LevenshteinDistance(source, target string) int {
 			cache[j] = currentDist
 		}
 
-		cache[len(targetChars)] = nextDist
+		cache[targetLen] = nextDist
 	}
 
-	return cache[len(targetChars)]
+	return cache[targetLen]
 }
 
 func min(a, b int) int {
