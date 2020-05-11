@@ -16,10 +16,13 @@ pub fn levenshtein_distance(source: &str, target: &str) -> usize {
         for (j, target_char) in target.chars().enumerate() {
             let current_dist = next_dist;
 
-            let mut dist_if_substitute = cache[j];
-            if source_char != target_char {
-                dist_if_substitute += 1;
-            }
+            let dist_if_substitute = {
+                if source_char == target_char {
+                    cache[j]
+                } else {
+                    cache[j] + 1
+                }
+            };
 
             let dist_if_insert = current_dist + 1;
             let dist_if_delete = cache[j + 1] + 1;
